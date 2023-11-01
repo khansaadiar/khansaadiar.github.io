@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khansa's Calculator</title>
+</head>
+<body>
+  <div id="app">
+    <calculator></calculator>
+  </div>
+  
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const Calculator = {
+      data() {
+        return {
+          number1: 0,
+          number2: 0,
+          operation: '+',
+          result: 0
+        };
+      },
+      methods: {
+        calculate() {
+          switch (this.operation) {
+            case '+':
+              this.result = this.number1 + this.number2;
+              break;
+            case '-':
+              this.result = this.number1 - this.number2;
+              break;
+            case '*':
+              this.result = this.number1 * this.number2;
+              break;
+            case '/':
+              this.result = this.number1 / this.number2;
+              break;
+            default:
+              this.result = 0;
+          }
+        }
+      },
+      template: `
+        <div>
+          <input v-model="number1" type="number" placeholder="First number">
+          <input v-model="number2" type="number" placeholder="Second number">
+          <select v-model="operation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+          </select>
+          <button @click="calculate">Calculate</button>
+          <div>Result: {{ result }}</div>
+        </div>
+      `
+    };
+
+    const app = Vue.createApp({});
+    app.component('calculator', Calculator);
+    app.mount('#app');
+  </script>
+</body>
+</html>
